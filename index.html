@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <input type="number" id="cep" class="form-control" placeholder="CEP">
+                <button onclick="consultarCEP()" class="btn btn-primary my-3">Constultar</button>
+                <button onclick="window.location.reload()" class="btn btn-outline-danger my-3">Limpar</button>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h5>Consulta de CEPs</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="result">
+                            <!-- Dados do endereço aqui --> 
+                        </div>
+                        <div class="card-footer text-center">
+                            <small class="text-muted">
+                                API: https://viacep.com.br/
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p><strong></strong></p>
+    <p><strong></strong></p>
+
+    <script src="./script.js"></script>
+</body>
+</html>
