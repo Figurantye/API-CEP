@@ -1,20 +1,38 @@
-var CEP = document.getElementById("CEP");
+var CEP = document.getElementById("cep");
 
 function consultarCEP() {
-    axios.get('viacep.com.br/ws/' + CEP + '/json/')
-        .then(response => response.json)
+    fetch('https://viacep.com.br/ws/' + CEP.value + '/json/')
+        .then(response => {
+            if (!response.ok){
+                throw new Error ("Erro ao consultar CEP");
+            }
+            return response.json();
+
+        })
         .then(data => {
-            const bairro = reesponse.data.bairro || "Não Informado";
-            const cidade = response.data.localidade || "Não Informado";
-            const estado = response.data.uf || "Não Informado";
-            const rua = response.data.logradouro || "Não Informado";
+            const bairro = data.bairro || "Não Informado";
+            const rua = data.logradouro || "Não Informado";
+            const cidade = data.localidade || "Não Informado";
+            const complemento = data.complemento || "Não Informado";
+            const estado = data.uf || "Não Informado";
+        
+            const resultDiv = document.getElementById('result');
+
+            resultDiv.innerHTML = `
+                <p><strong>CEP:</strong> ${CEP.value}</p>
+                <p><strong>Estado:</strong> ${estado}</p>
+                <p><strong>Cidade:</strong> ${cidade}</p>
+                <p><strong>Rua:</strong> ${rua}</p>
+                <p><strong>Bairro:</strong> ${bairro}</p>
+                <p><strong>Complemento:</strong> ${complemento}</p>`;
         })
 
-        const resultDiv = document.getElementById("result");
-        resultDiv.innerHTML = `
-                <strong>Logradouro:</strong> ${rua}<br>
-                <strong>Bairro:</strong> ${bairro}<br>
-                <strong>Cidade:</strong> ${cidade}<br>
-                <strong>Estado:</strong> ${estado}`;
+        .catch(error => {
+            document.getElementById('result').innerHTML = `
+            <div class="alert alert-danger" role="alert">
+            Ocorreu um erro ao consultar o CEP. Verifique se o CEP está correto.</div>
+            `;
+            console.error("Erro ao buscar o CEP: " + error);
+        });
             
 }
